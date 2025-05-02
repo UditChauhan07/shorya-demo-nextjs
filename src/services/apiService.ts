@@ -11,10 +11,10 @@ export const signupApi = async (finaldata:any) => {
     });
     console.log(response.data, "Users api data");
     return response.data;
-  } catch (error) {
-    if (error.response) {
-      return error.response.data;
-    }
+  } catch (error:unknown) {
+    if (axios.isAxiosError(error) && error.response) {
+        return error.response.data;
+      }
     throw new Error("An unexpected error occurred");
   }
 };
@@ -29,10 +29,10 @@ export const LoginApi = async (finaldata:any) => {
       });
       console.log(response.data, "Login api data");
       return response.data;
-    } catch (error) {
-      if (error.response) {
-        return error.response.data;
-      }
+    } catch (error:unknown) {
+        if (axios.isAxiosError(error) && error.response) {
+            return error.response.data;
+          }
       throw new Error("An unexpected error occurred");
     }
   };
