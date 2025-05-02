@@ -31,53 +31,57 @@ export default function Login() {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-      const finalData = {
-        email: data.email,
-        password: data.password,
-      };
-  
-      try {
-        // 1) Show a loading alert
-        Swal.fire({
-          title: "Logging..",
-          allowOutsideClick: false,
-          didOpen: () => {
-            Swal.showLoading();
-          },
-        });
-  
-        // 2) Call your API
-        const res = await LoginApi(finalData);
-  
-        // 3) Close the loading alert
-        Swal.close();
-  
-        // 4) Show success or error
-        if ((res as any).error) {
-          Swal.fire({
-            icon: "error",
-            title: "Loggied-in Failed",
-            text: (res as any).error,
-          });
-        } else {
-          Swal.fire({
-            icon: "success",
-            title: "Welcome!",
-            text: "Login Succesfully",
-          }).then(() => {
-            route.push("/dashboard");
-          });
-        }
-      } catch (err: any) {
-        // close loading if it’s still open
-        Swal.close();
+    const finalData = {
+      email: data.email,
+      password: data.password,
+    };
+
+    try {
+      // 1) Show a loading alert
+      Swal.fire({
+        title: "Logging..",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
+      // 2) Call your API
+      const res = await LoginApi(finalData);
+
+      // 3) Close the loading alert
+      Swal.close();
+
+      // 4) Show success or error
+      if ((res as any).error) {
         Swal.fire({
           icon: "error",
-          title: "Oops…",
-          text: err.message || "An unexpected error occurred.",
+          title: "Loggied-in Failed",
+          text: (res as any).error,
+        });
+      } else {
+        Swal.fire({
+          icon: "success",
+          title: "Welcome!",
+          text: "Login Succesfully",
+        }).then(() => {
+          route.push("/dashboard");
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("name", res.userDetails.name);
+          localStorage.setItem("userId", res.userDetails.userId);
+          localStorage.setItem("email", res.userDetails.email);
         });
       }
-    };
+    } catch (err: any) {
+      // close loading if it’s still open
+      Swal.close();
+      Swal.fire({
+        icon: "error",
+        title: "Oops…",
+        text: err.message || "An unexpected error occurred.",
+      });
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },

@@ -20,8 +20,13 @@ export async function POST(req: NextRequest) {
     }
 
     const token = signToken({ userId: user._id, email: user.email });
+    const userDetails = {
+        userId:user._id,
+        name:user.name,
+        email:user.email
+    }
 
-    return NextResponse.json({ message: "Login successful", token }, { status: 200 });
+    return NextResponse.json({ message: "Login successful", token,userDetails }, { status: 200 });
   } catch (err) {
     return NextResponse.json({ error: "Login failed" }, { status: 500 });
   }
