@@ -1,6 +1,5 @@
 import axios from "axios";
 export const Url = process.env.NEXT_PUBLIC_API_URL || "";
-// import d from "../app/api/auth/login/route"
 
 //Users Signup Api
 export const signupApi = async (finaldata: any) => {
