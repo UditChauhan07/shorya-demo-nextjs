@@ -1,4 +1,5 @@
 "use client";
+import { MdLibraryAdd } from "react-icons/md";
 
 export default function Games() {
   const products = [
@@ -156,9 +157,17 @@ export default function Games() {
                     )}
                   </p>
                 </div>
-                <button className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-500 transition">
-                  Click for Details
-                </button>
+                <div className="flex items-center gap-2 mt-4">
+                  {/* Click for Details Button - 80% */}
+                  <button className=" cursor-pointer flex-1 bg-purple-600 text-white py-2 rounded hover:bg-purple-500 transition">
+                    Click for Details
+                  </button>
+
+                  {/* Add to Cart Icon Button - auto width */}
+                  <button className="bg-purple-600 cursor-pointer  text-white p-2 rounded-2xl hover:bg-purple-500 transition">
+                    <MdLibraryAdd size={20} />
+                  </button>
+                </div>
               </div>
             </div>
           ))}

@@ -33,7 +33,7 @@ export default function About() {
           Back to Dashboard
         </a>
         <a
-          href="/products"
+          href="/games"
           className="px-6 py-3 bg-purple-500 rounded-lg font-medium text-white hover:bg-purple-600 transition"
         >
           Explore Games

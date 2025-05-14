@@ -1,10 +1,11 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-sans: 'Orbitron', Arial, Helvetica, sans-serif;
+  --font-sans: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
 @theme inline {
@@ -24,5 +25,6 @@
 body {
   background: #101828;
   color: var(--foreground);
-  font-family: var(--font-sans);
+  /* font-family: var(--font-sans); */
+  font-family: 'Courier New', Courier, monospace;
 }

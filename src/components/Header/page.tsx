@@ -107,9 +107,6 @@ export default function Header() {
                   </div>
                 )}
               </div>
-              <button className="cursor-pointer hover:text-purple-400">
-                <FaCartPlus size={22} />
-              </button>
             </>
           ) : (
             <button
@@ -119,6 +116,13 @@ export default function Header() {
               Login
             </button>
           )}
+
+          <button
+            className="cursor-pointer hover:text-purple-400"
+            onClick={() => router.push("/cart")}
+          >
+            <FaCartPlus size={22} />
+          </button>
         </nav>
 
         {/* Mobile Hamburger Button */}
