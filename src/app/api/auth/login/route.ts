@@ -38,9 +38,9 @@ export async function POST(req: NextRequest) {
     );
   } catch (err) {
     console.error("Login failed:", err); // Log the actual error in the server console
-  
+
     const errorMessage = err instanceof Error ? err.message : String(err);
-  
+
     return NextResponse.json(
       { error: "Login failed", details: errorMessage },
       { status: 500 }
