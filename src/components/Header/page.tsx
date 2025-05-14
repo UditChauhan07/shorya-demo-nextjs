@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaGamepad, FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa6";
 
 export default function Header() {
   const router = useRouter();
@@ -78,33 +79,38 @@ export default function Header() {
           </button>
 
           {token ? (
-            <div className="relative">
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center group cursor-pointer"
-              >
-                <FaUserCircle
-                  size={22}
-                  className="text-white group-hover:text-purple-400 transition-colors"
-                />
+            <>
+              <div className="relative mr-5">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center group cursor-pointer"
+                >
+                  <FaUserCircle
+                    size={22}
+                    className="text-white group-hover:text-purple-400 transition-colors"
+                  />
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg z-50">
+                    <button
+                      onClick={() => navigateAndClose("/profile")}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Update Profile
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+              <button className="cursor-pointer hover:text-purple-400">
+                <FaCartPlus size={22} />
               </button>
-              {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg z-50">
-                  <button
-                    onClick={() => navigateAndClose("/profile")}
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  >
-                    Update Profile
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
+            </>
           ) : (
             <button
               onClick={() => router.push("/login")}
