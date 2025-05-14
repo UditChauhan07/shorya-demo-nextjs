@@ -5,7 +5,7 @@ export default function Contact() {
     <div className="min-h-screen  flex items-center justify-center px-4 py-12">
       <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex flex-col md:flex-row overflow-hidden">
         {/* Left side: Contact details */}
-        <div className="bg-gray-900 text-white w-full md:w-1/2 p-8">
+        <div className="bg-gray-800 text-white w-full md:w-1/2 p-8">
           <h2 className="text-2xl font-bold mb-4">Contact GameZone</h2>
           <p className="mb-6 text-gray-300">
             Have questions or feedback? Reach out to us anytime!

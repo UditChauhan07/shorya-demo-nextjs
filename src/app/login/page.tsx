@@ -70,6 +70,7 @@ export default function Login() {
           localStorage.setItem("name", res.userDetails.name);
           localStorage.setItem("userId", res.userDetails.userId);
           localStorage.setItem("email", res.userDetails.email);
+          window.dispatchEvent(new Event("token-changed"));
         });
       }
     } catch (err: any) {
@@ -102,7 +103,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 p-4">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br  p-4">
       <motion.div
         className="grid grid-cols-1 md:grid-cols-2 w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden"
         variants={containerVariants}

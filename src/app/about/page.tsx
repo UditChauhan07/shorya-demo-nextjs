@@ -2,7 +2,7 @@
 
 export default function About() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white px-6 py-16 flex flex-col items-center justify-center text-center">
+    <div className="relative min-h-screen bg-gradient-to-br  text-white px-6 py-16 flex flex-col items-center justify-center text-center">
       <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-purple-400 drop-shadow-lg">
         Welcome to GameZone
       </h1>

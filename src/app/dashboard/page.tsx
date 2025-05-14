@@ -15,13 +15,14 @@ export default function DashBoard() {
 
   const handleLogout = () => {
     localStorage.clear(); // or remove specific keys
+    window.dispatchEvent(new Event("token-changed"))
     router.push("/"); // redirect to login page
   };
 
   if (!name || !email) return <p className="text-center mt-10">Loading...</p>;
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen ">
       <div className="bg-white text-black shadow-lg rounded-lg p-8 w-full max-w-sm text-center">
         <h1 className="text-2xl font-bold mb-4">Welcome, {name}!</h1>
         <div className="text-gray-700 mb-4">

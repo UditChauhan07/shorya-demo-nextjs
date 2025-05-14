@@ -1,8 +1,10 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sans: 'Orbitron', Arial, Helvetica, sans-serif;
 }
 
 @theme inline {
@@ -20,7 +22,7 @@
 }
 
 body {
-  background: linear-gradient(to bottom right, #111827, #374151);
+  background: #101828;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
