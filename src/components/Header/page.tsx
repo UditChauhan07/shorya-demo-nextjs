@@ -4,12 +4,16 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaGamepad, FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa6";
+import useCartStore from "../../store/useCartStore";
 
 export default function Header() {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const cart = useCartStore((state) => state.cart);
+  const cartCount = cart.reduce((total:any, item:any) => total + item.quantity, 0);
 
   useEffect(() => {
     const updateToken = () => {
@@ -37,6 +41,15 @@ export default function Header() {
     router.push(path);
     setMobileMenuOpen(false);
     setDropdownOpen(false);
+  };
+
+  const handleCartClick = () => {
+    // Adjust key name if needed
+    if (token) {
+      router.push("/cart");
+    } else {
+      alert("Login required to access the cart.");
+    }
   };
 
   return (
@@ -117,12 +130,14 @@ export default function Header() {
             </button>
           )}
 
-          <button
-            className="cursor-pointer hover:text-purple-400"
-            onClick={() => router.push("/cart")}
-          >
-            <FaCartPlus size={22} />
-          </button>
+          <div className="relative cursor-pointer" onClick={handleCartClick}>
+  <FaCartPlus size={22} className="hover:text-purple-400" />
+  {cartCount > 0 && (
+    <span className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full">
+      {cartCount}
+    </span>
+  )}
+</div>
         </nav>
 
         {/* Mobile Hamburger Button */}

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/page";
 import Footer from "@/components/Footer/page";
+import { Toaster } from 'react-hot-toast';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +36,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <Header/>
+        <Toaster position="top-right" reverseOrder={false} />
         {children}
         <Footer/>
       </body>

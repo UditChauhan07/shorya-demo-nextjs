@@ -1,5 +1,7 @@
 "use client";
 import { MdLibraryAdd } from "react-icons/md";
+import useCartStore from "../../store/useCartStore";
+import toast from "react-hot-toast";
 
 export default function Games() {
   const products = [
@@ -16,7 +18,7 @@ export default function Games() {
       name: "Mystic Realms",
       description: "Explore magical lands in this epic fantasy RPG.",
       category: "RPG",
-      price: "$19.99",
+      price: 19.99,
       image: "https://via.placeholder.com/300x180?text=Mystic+Realms",
     },
     {
@@ -40,7 +42,7 @@ export default function Games() {
       name: "Mystic Realms",
       description: "Explore magical lands in this epic fantasy RPG.",
       category: "RPG",
-      price: "$19.99",
+      price: 19.99,
       image: "https://via.placeholder.com/300x180?text=Mystic+Realms",
     },
     {
@@ -53,6 +55,12 @@ export default function Games() {
     },
   ];
 
+  const addToCart = useCartStore((state) => state.addToCart);
+  const cart = useCartStore((state) => state.cart);
+  console.log("cartt", cart);
+  const increaseQuantity = useCartStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
+
   const filterCategories = [
     "All",
     "Action",
@@ -63,6 +71,10 @@ export default function Games() {
     "Sandbox",
     "Shooter",
   ];
+
+  
+
+  
 
   return (
     <div className="min-h-screen  py-12 px-6">
@@ -164,9 +176,50 @@ export default function Games() {
                   </button>
 
                   {/* Add to Cart Icon Button - auto width */}
-                  <button className="bg-purple-600 cursor-pointer  text-white p-2 rounded-2xl hover:bg-purple-500 transition">
-                    <MdLibraryAdd size={20} />
-                  </button>
+                  {(() => {
+                    const cartItem = cart.find(
+                      (item:any) => item.id === product.id
+                    );
+
+                    const token =
+                      typeof window !== "undefined"
+                        ? localStorage.getItem("token")
+                        : null;
+
+                    const handleAdd = () => {
+                      if (!token) {
+                        toast.error("Login required to add to cart!");
+                        return;
+                      }
+                      addToCart(product);
+                      toast.success("Added to cart!");
+                    };
+
+                    const handleRemove = () => {
+                      if (!token) {
+                        toast.error("Login required to remove from cart!");
+                        return;
+                      }
+                      decreaseQuantity(product.id);
+                      toast.success("Removed from cart!");
+                    };
+
+                    return cartItem ? (
+                      <button
+                        onClick={handleRemove}
+                        className="bg-red-600 cursor-pointer text-white px-3 py-2 rounded hover:bg-red-500 transition"
+                      >
+                        Remove
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleAdd}
+                        className="bg-purple-600 cursor-pointer text-white px-3 py-2 rounded hover:bg-purple-500 transition"
+                      >
+                        Add
+                      </button>
+                    );
+                  })()}
                 </div>
               </div>
             </div>

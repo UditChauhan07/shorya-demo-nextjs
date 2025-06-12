@@ -1,27 +1,33 @@
 "use client";
+import useCartStore from "../../store/useCartStore"; // adjust path if needed
 
 export default function Cart() {
-  const cartItems = [
-    {
-      id: 1,
-      name: "Mystic Realms",
-      price: 19.99,
-      quantity: 1,
-      image: "https://via.placeholder.com/100x60?text=Mystic+Realms",
-    },
-    {
-      id: 2,
-      name: "Drift Kings",
-      price: 0.0,
-      quantity: 1,
-      image: "https://via.placeholder.com/100x60?text=Drift+Kings",
-    },
-  ];
+  // const cartItems = [
+  //   {
+  //     id: 1,
+  //     name: "Mystic Realms",
+  //     price: 19.99,
+  //     quantity: 1,
+  //     image: "https://via.placeholder.com/100x60?text=Mystic+Realms",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Drift Kings",
+  //     price: 0.0,
+  //     quantity: 1,
+  //     image: "https://via.placeholder.com/100x60?text=Drift+Kings",
+  //   },
+  // ];
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const cartItems = useCartStore((state) => state.cart);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+
+  const total = cartItems.reduce((sum: any, item: any) => {
+    const price =
+      typeof item.price === "number" ? item.price : parseFloat(item.price) || 0;
+
+    return sum + price * item.quantity;
+  }, 0);
 
   return (
     <div className="min-h-screen py-12 px-6 ">
@@ -33,7 +39,7 @@ export default function Cart() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="md:col-span-2 space-y-4">
-            {cartItems.map((item) => (
+            {cartItems.map((item:any) => (
               <div
                 key={item.id}
                 className="flex items-center justify-between bg-gray-900 rounded shadow p-4"
@@ -53,9 +59,16 @@ export default function Cart() {
                 </div>
                 <div className="text-right">
                   <p className="font-semibold">
-                    {item.price === 0 ? "Free" : `$${item.price.toFixed(2)}`}
+                    {typeof item.price === "number"
+                      ? item.price === 0
+                        ? "Free"
+                        : `$${item.price.toFixed(2)}`
+                      : item.price}
                   </p>
-                  <button className="text-red-400 text-sm hover:underline">
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="text-red-400 text-sm hover:underline"
+                  >
                     Remove
                   </button>
                 </div>
